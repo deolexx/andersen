@@ -52,6 +52,7 @@ public class AwesomeList<T> {
      *
      * @param index - index of the element to return
      * @return - the element in the specified position in this list
+     * @throws IndexOutOfBoundsException - if the specified index not in array
      */
     public T get(int index) {
         if (index < 0 || index >= size) throw new IndexOutOfBoundsException("Index out of bounds :" + index);
@@ -62,12 +63,17 @@ public class AwesomeList<T> {
      * Remove the element by its index
      *
      * @param index - index of the element to remove
+     * @throws IndexOutOfBoundsException - if the specified index not in array
      */
     public void remove(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index out of bounds :" + index);
         } else {
+            for (int i = index; i < size; i++) {
+                dataArray[i] = dataArray[i + 1];
+            }
 
+            dataArray[size--] = null;
         }
     }
 
@@ -85,9 +91,22 @@ public class AwesomeList<T> {
 
     /**
      * Returns the size of the AwesomeList (number of elements it contains)
+     *
+     * @return - the number of elements in current list
      */
     public int size() {
         return size;
     }
+
+    /**
+     * Returns true if list is empty
+     *
+     * @return - true if list is empty, else return false
+     */
+    public boolean isEmpty() {
+        return this.size == 0;
+    }
+
+
 
 }
