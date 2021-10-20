@@ -9,90 +9,85 @@ package com.deo;
 public class AwesomeList<T> {
 
     /**
-     * Default initial capacity
+     * Default initial capacity for inner array
      */
-    private static final int DEFAULT_CAPACITY = 10;
+    private static final int DEFAULT_SIZE = 10;
+
 
     /**
-     * Empty array instance used for empty instances
+     * Inner array into which elements of the AwesomeList are stored.
      */
-    private static final Object[] EMPTY_ELEMENTDATA = {};
+    private Object[] dataArray;
+
 
     /**
-     * Shared empty array used for default sized empty instances
+     * The size of the AwesomeList
      */
-    private static final Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = {};
+    private int size = 0;
 
-    /**
-     * Buffer array into which elements of the AwesomeList are stored.
-     */
-    transient Object[] elementData;
-
-    /**
-     * The size of the AwesomeList (number of elements it contains)
-     */
-    private int size;
 
     /**
      * Create empty list with default capacity of 10
      */
     public AwesomeList() {
-        this.elementData = DEFAULTCAPACITY_EMPTY_ELEMENTDATA;
+        this.dataArray = new Object[DEFAULT_SIZE];
     }
 
-    /**
-     * Create empty list with specified capacity
-     *
-     * @param initialCapacity initial capacity of the list
-     * @throws IllegalArgumentException if the specified capacity is negative
-     */
-    public AwesomeList(int initialCapacity) {
-        if (initialCapacity > 0) {
-            this.elementData = new Object[initialCapacity];
-        } else if (initialCapacity == 0) {
-            this.elementData = EMPTY_ELEMENTDATA;
-        } else {
-            throw new IllegalArgumentException("Illegal capacity value: " + initialCapacity);
-        }
-    }
 
     /**
      * Add new element to the list
+     *
      * @param element
      */
     public void add(T element) {
-        grow();
-        elementData[size] = element;
-        size++;
+        if (size == dataArray.length - 1) {
+            resize(dataArray.length * 2);
+        }
+        dataArray[size++] = element;
 
     }
 
     /**
      * Get the element from AwesomeList
-     * @param index
-     * @return
+     *
+     * @param index - index of the element to return
+     * @return - the element in the specified position in this list
      */
     public T get(int index) {
-        return null;
+        if (index < 0 || index >= size) throw new IndexOutOfBoundsException("Index out of bounds :" + index);
+        return (T) dataArray[index];
     }
 
     /**
      * Remove the element by its index
-     * @param index
+     *
+     * @param index - index of the element to remove
      */
     public void remove(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index out of bounds :" + index);
+        } else {
+
+        }
     }
 
     /**
-     * Increase size of an array
+     * Resize the inner dataArray to specified capacity
+     *
+     * @param newLength - size of the new array
      */
-    public void grow() {
-        if (size == elementData.length) {
-            Object[] elementDataNew = new Object[size * 3 / (2 + 1)];
-            System.arraycopy(elementData, 0, elementDataNew, 0, size);
-            elementData = elementDataNew;
+    private void resize(int newLength) {
+        Object[] elementDataNew = new Object[newLength];
+        System.arraycopy(dataArray, 0, elementDataNew, 0, size);
+        dataArray = elementDataNew;
 
-        }
+    }
+
+    /**
+     * Returns the size of the AwesomeList (number of elements it contains)
+     */
+    public int size() {
+        return size;
     }
 
 }
