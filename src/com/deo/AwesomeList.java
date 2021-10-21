@@ -1,9 +1,7 @@
 package com.deo;
 
-public interface AwesomeList <T>
-
-{
-    void  add(T element);
+public interface AwesomeList<T> {
+    void add(T element);
 
 
     T get(int index);
@@ -12,6 +10,10 @@ public interface AwesomeList <T>
 
     int size();
 
-    void set(int index,T element);
+    void set(int index, T element);
+
+    boolean isEmpty();
+
+    void sort();
 
 }

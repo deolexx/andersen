@@ -77,6 +77,7 @@ public class AwesomeArrayList<T extends Comparable<? super T>> implements Awesom
 
             dataArray[size--] = null;
         }
+
     }
 
     /**

@@ -1,73 +1,116 @@
 package com.deo;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
+import java.lang.reflect.Field;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class AwesomeArrayListTest {
+    AwesomeList<String> stringList;
+    AwesomeList<Integer> integerList;
+    AwesomeList<Integer> emptyList;
+
+    @BeforeEach
+    public void setup() {
+        stringList = new AwesomeArrayList<>();
+        stringList.add("Gimmly");
+        stringList.add("Sam");
+        stringList.add("Frodo");
+        stringList.add("Aragorn");
+
+        integerList = new AwesomeArrayList<>();
+        integerList.add(9);
+        integerList.add(4);
+        integerList.add(1);
+        integerList.add(99);
+
+        emptyList = new AwesomeArrayList<>();
 
 
-    AwesomeArrayList<String> stringAwesomeArrayList = new AwesomeArrayList<>();
-    AwesomeArrayList<Integer> integerAwesomeArrayList = new AwesomeArrayList<>();
+    }
 
 
-    @org.junit.jupiter.api.Test
+    @Test
     void addStringToStringList() {
-        stringAwesomeArrayList.add("Hello");
-        assertTrue(stringAwesomeArrayList.get(0).equals("Hello"));
+        stringList.add("Hello");
+        assertTrue(stringList.get(4).equals("Hello"));
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void addIntegerToIntegerList() {
-        integerAwesomeArrayList.add(1);
-        assertTrue(integerAwesomeArrayList.get(0).equals(1));
+        emptyList.add(1);
+        assertTrue(emptyList.get(0).equals(1));
+    }
+    @Test
+    void addNullToEmptyList()
+    {
+        emptyList.add(null);
+        emptyList.add(null);
+        assertTrue(emptyList.size()==2);
+    }
+    @Test
+    void addNullToStringList(){
+        stringList.add(null);
+        assertTrue(stringList.size()==5);
     }
 
-
-    @org.junit.jupiter.api.Test
+    @Test
     void get() {
-
+      assertEquals(99,integerList.get(3));
     }
 
-    @org.junit.jupiter.api.Test
-    void remove() {
+    @Test
+    void removeFromIntegerList() {
+        integerList.remove(0);
+        integerList.remove(3);
+        assertTrue(integerList.size()==2);
     }
 
-    @org.junit.jupiter.api.Test
-    void size() {
+    @Test
+    void testSizeMethod() {
+        assertTrue(stringList.size()==4);
+        assertTrue(emptyList.size()==0);
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void isEmpty() {
+        assertFalse(stringList.isEmpty());
+        assertTrue(emptyList.isEmpty());
     }
 
 
     @Test
-    void setCorrectIntegers(){
-        AwesomeArrayList<Integer> integerAwesomeArrayList = new AwesomeArrayList<>();
-        integerAwesomeArrayList.add(4);
-        integerAwesomeArrayList.add(1);
-        integerAwesomeArrayList.add(14);
-        integerAwesomeArrayList.add(18);
-        integerAwesomeArrayList.set(0,124);
-        integerAwesomeArrayList.set(3,0);
-        assertEquals(124,integerAwesomeArrayList.get(0));
-        assertEquals(0,integerAwesomeArrayList.get(3));
+    void setCorrectIntegers() {
+    integerList.set(0,222);
+    assertTrue(integerList.get(0)==222);
     }
-
 
 
     @Test
-    void sortWithIntegers() {
-        AwesomeArrayList<Integer> integerAwesomeArrayList = new AwesomeArrayList<>();
-        integerAwesomeArrayList.add(4);
-        integerAwesomeArrayList.add(1);
-        integerAwesomeArrayList.add(14);
-        integerAwesomeArrayList.add(18);
-        integerAwesomeArrayList.sort();
-        assertEquals(1,integerAwesomeArrayList.get(0));
+    void sortIntegers() {
+        integerList.sort();
+        assertEquals(1, integerList.get(0));
+        assertEquals(4, integerList.get(1));
+        assertEquals(9, integerList.get(2));
+        assertEquals(99, integerList.get(3));
 
     }
+    @Test
+    void sortStrings(){
+        stringList.sort();
+        assertEquals("Aragorn",stringList.get(0));
+        assertEquals("Frodo",stringList.get(1));
+
+    }
+    @Test
+     void internal() throws NoSuchFieldException, IllegalAccessException {
+        Class<? extends AwesomeList> aClass = stringList.getClass();
+        Field default_size = aClass.getDeclaredField("DEFAULT_SIZE");
+        default_size.setAccessible(true);
+        Object o = default_size.get(aClass);
+        assertTrue((int)o==10);
+    }
+
 }
