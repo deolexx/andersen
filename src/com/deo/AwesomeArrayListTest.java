@@ -113,4 +113,18 @@ class AwesomeArrayListTest {
         assertTrue((int)o==10);
     }
 
+    @Test
+    void addRemoveTest(){
+        for (int i = 0; i < 99999; i++) {
+            emptyList.add(i);
+        }
+        assertTrue(emptyList.size()==99999);
+        for (int i = 99998; i >=0 ; i--) {
+            emptyList.remove(i);
+        }
+        assertTrue(emptyList.size()==0);
+
+    }
+
+
 }
