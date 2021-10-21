@@ -43,35 +43,36 @@ class AwesomeArrayListTest {
         emptyList.add(1);
         assertTrue(emptyList.get(0).equals(1));
     }
+
     @Test
-    void addNullToEmptyList()
-    {
+    void addNullToEmptyList() {
         emptyList.add(null);
         emptyList.add(null);
-        assertTrue(emptyList.size()==2);
+        assertTrue(emptyList.size() == 2);
     }
+
     @Test
-    void addNullToStringList(){
+    void addNullToStringList() {
         stringList.add(null);
-        assertTrue(stringList.size()==5);
+        assertTrue(stringList.size() == 5);
     }
 
     @Test
     void get() {
-      assertEquals(99,integerList.get(3));
+        assertEquals(99, integerList.get(3));
     }
 
     @Test
     void removeFromIntegerList() {
         integerList.remove(0);
         integerList.remove(3);
-        assertTrue(integerList.size()==2);
+        assertTrue(integerList.size() == 2);
     }
 
     @Test
     void testSizeMethod() {
-        assertTrue(stringList.size()==4);
-        assertTrue(emptyList.size()==0);
+        assertTrue(stringList.size() == 4);
+        assertTrue(emptyList.size() == 0);
     }
 
     @Test
@@ -83,8 +84,8 @@ class AwesomeArrayListTest {
 
     @Test
     void setCorrectIntegers() {
-    integerList.set(0,222);
-    assertTrue(integerList.get(0)==222);
+        integerList.set(0, 222);
+        assertTrue(integerList.get(0) == 222);
     }
 
 
@@ -97,34 +98,54 @@ class AwesomeArrayListTest {
         assertEquals(99, integerList.get(3));
 
     }
+
     @Test
-    void sortStrings(){
+    void sortStrings() {
         stringList.sort();
-        assertEquals("Aragorn",stringList.get(0));
-        assertEquals("Frodo",stringList.get(1));
+        assertEquals("Aragorn", stringList.get(0));
+        assertEquals("Frodo", stringList.get(1));
 
     }
+
     @Test
-     void internal() throws NoSuchFieldException, IllegalAccessException {
+    void internal() throws NoSuchFieldException, IllegalAccessException {
         Class<? extends AwesomeList> aClass = stringList.getClass();
         Field default_size = aClass.getDeclaredField("DEFAULT_SIZE");
         default_size.setAccessible(true);
         Object o = default_size.get(aClass);
-        assertTrue((int)o==10);
+        assertTrue((int) o == 10);
     }
 
     @Test
-    void addRemoveTest(){
+    void addRemoveTest() {
         for (int i = 0; i < 99999; i++) {
             emptyList.add(i);
         }
-        assertTrue(emptyList.size()==99999);
-        for (int i = 99998; i >=0 ; i--) {
+        assertTrue(emptyList.size() == 99999);
+        for (int i = 99998; i >= 0; i--) {
             emptyList.remove(i);
         }
-        assertTrue(emptyList.size()==0);
+        assertTrue(emptyList.size() == 0);
 
     }
 
+    @Test
+    void getIndexOutOfBoundsException() {
+    assertThrows(IndexOutOfBoundsException.class,()->{
+        emptyList.get(12);
+    });
+    } @Test
+    void setIndexOutOfBoundsException() {
+    assertThrows(IndexOutOfBoundsException.class,()->{
+        integerList.set(22,null);
+    });
+    }
+
+    @Test
+    void removeIndexOutOfBoundsException() {
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            emptyList.remove(12);
+        });
+    }
 
 }
