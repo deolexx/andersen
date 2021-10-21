@@ -1,27 +1,28 @@
 package com.deo;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.Arrays;
 
-class AwesomeListTest {
+import static org.junit.jupiter.api.Assertions.*;
+
+class AwesomeArrayListTest {
 
 
-    AwesomeList<String> stringAwesomeList = new AwesomeList<>();
-    AwesomeList<Integer> integerAwesomeList = new AwesomeList<>();
+    AwesomeArrayList<String> stringAwesomeArrayList = new AwesomeArrayList<>();
+    AwesomeArrayList<Integer> integerAwesomeArrayList = new AwesomeArrayList<>();
 
 
     @org.junit.jupiter.api.Test
     void addStringToStringList() {
-        stringAwesomeList.add("Hello");
-        assertTrue(stringAwesomeList.get(0).equals("Hello"));
+        stringAwesomeArrayList.add("Hello");
+        assertTrue(stringAwesomeArrayList.get(0).equals("Hello"));
     }
 
     @org.junit.jupiter.api.Test
     void addIntegerToIntegerList() {
-        integerAwesomeList.add(1);
-        assertTrue(integerAwesomeList.get(0).equals(1));
+        integerAwesomeArrayList.add(1);
+        assertTrue(integerAwesomeArrayList.get(0).equals(1));
     }
 
 
@@ -40,5 +41,33 @@ class AwesomeListTest {
 
     @org.junit.jupiter.api.Test
     void isEmpty() {
+    }
+
+
+    @Test
+    void setCorrectIntegers(){
+        AwesomeArrayList<Integer> integerAwesomeArrayList = new AwesomeArrayList<>();
+        integerAwesomeArrayList.add(4);
+        integerAwesomeArrayList.add(1);
+        integerAwesomeArrayList.add(14);
+        integerAwesomeArrayList.add(18);
+        integerAwesomeArrayList.set(0,124);
+        integerAwesomeArrayList.set(3,0);
+        assertEquals(124,integerAwesomeArrayList.get(0));
+        assertEquals(0,integerAwesomeArrayList.get(3));
+    }
+
+
+
+    @Test
+    void sortWithIntegers() {
+        AwesomeArrayList<Integer> integerAwesomeArrayList = new AwesomeArrayList<>();
+        integerAwesomeArrayList.add(4);
+        integerAwesomeArrayList.add(1);
+        integerAwesomeArrayList.add(14);
+        integerAwesomeArrayList.add(18);
+        integerAwesomeArrayList.sort();
+        assertEquals(1,integerAwesomeArrayList.get(0));
+
     }
 }

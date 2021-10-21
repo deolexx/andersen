@@ -10,4 +10,8 @@ public interface AwesomeList <T>
 
     void remove(int index);
 
+    int size();
+
+    void set(int index,T element);
+
 }

@@ -6,7 +6,7 @@ package com.deo;
  * @param <T> the type of elements in this list
  * @author Serhii Lukianeko
  */
-public class AwesomeArrayList<T extends Comparable<T>>  implements AwesomeList<T>{
+public class AwesomeArrayList<T extends Comparable<? super T>> implements AwesomeList<T> {
 
     /**
      * Default initial capacity for inner array
@@ -109,11 +109,27 @@ public class AwesomeArrayList<T extends Comparable<T>>  implements AwesomeList<T
         return this.size == 0;
     }
 
-    public void sort (){
-       Integer [] array = {1,2,3,4};
-    
 
-    new QuickSort().quickSort( array,0,array.length-1);
+    /**
+     * Sorts the list by its natural order
+     */
+    public void sort() {
+        QuickSort.sort(this);
+    }
+
+    /**
+     * Update the element with new value
+     *
+     * @param index   - index of the element to update
+     * @param element - new value of the element
+     */
+    public void set(int index, T element) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index out of bounds :" + index);
+        } else {
+            dataArray[index] = element;
+        }
+
 
     }
 
