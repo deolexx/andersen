@@ -1,5 +1,7 @@
 package com.deo;
 
+import java.util.Arrays;
+
 /**
  * Resizable-array implementation
  *
@@ -63,7 +65,8 @@ public class AwesomeArrayList<T extends Comparable<? super T>> implements Awesom
 
     /**
      * Remove the element by its index
-     *
+     * calls internal trimToSize method if dataArray.length bigger
+     * than size variable value
      * @param index - index of the element to remove
      * @throws IndexOutOfBoundsException - if the specified index not in array
      */
@@ -77,8 +80,23 @@ public class AwesomeArrayList<T extends Comparable<? super T>> implements Awesom
 
             dataArray[size--] = null;
         }
-
+        if(dataArray.length>size) {
+            trimTosize();
+        }
     }
+
+    /**
+     * Reduses size of internal dataArray
+     * when called
+     */
+    private void trimTosize(){
+        int oldCapacity=dataArray.length;
+        if(size*3/2<oldCapacity){
+            dataArray = Arrays.copyOf(dataArray,size+1);
+        }
+    }
+
+
 
     /**
      * Resize the inner dataArray to specified capacity
