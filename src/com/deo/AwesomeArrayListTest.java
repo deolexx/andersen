@@ -65,7 +65,7 @@ class AwesomeArrayListTest {
     @Test
     void removeFromIntegerList() {
         integerList.remove(0);
-        integerList.remove(3);
+        integerList.remove(0);
         assertTrue(integerList.size() == 2);
     }
 
